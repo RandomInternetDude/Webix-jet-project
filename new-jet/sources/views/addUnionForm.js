@@ -1,11 +1,9 @@
-import {JetView} from "webix-jet";
-import {getCities} from "models/cities";
-import {getCprocessor} from "models/cardProcessors";
+import { JetView } from "webix-jet";
 import "webix/tinymce/tinymce";
-import { unions } from "models/unions";
+import { getCities } from "models/cities";
 
-export default class InformationView extends JetView {
-	config(){
+export default class NewUnionView extends JetView {
+    config(){
 		const _ = this.app.getService("locale")._;
 		const screen = this.app.config.size;
 		
@@ -234,17 +232,23 @@ export default class InformationView extends JetView {
 			]
 		};
 
-		return {
-			view:"form",
-			rows:[
-				(screen !== "small") ? upper_section : upper_section_narrow,
-				notes,
-				buttons
-			],
-			rules:{
-				"Uname":webix.rules.isNotEmpty
-			}
-		};
+        return {
+            view:"window", 
+            position:"center",
+            modal:true,
+            head:{view:"button", label:"X", width:70, click:(this.hideForm())},
+            body: {
+                view:"form",
+                rows:[
+                (screen !== "small") ? upper_section : upper_section_narrow,
+                notes,
+                buttons
+            ]      
+            },
+            rules:{
+            "Uname":webix.rules.isNotEmpty
+            }
+      }    
 	}
 	init(form){
 		
@@ -268,4 +272,10 @@ export default class InformationView extends JetView {
 		// c_options.map(x => x.value = _(x.value));
 		// this.$$("cities:combo").getPopup().getList().parse(c_options);
 	}
+    
+    hideForm(){
+        this.getRoot().hide();
+        this.form.clear();
+        this.form.clearValidation();
+    }
 }

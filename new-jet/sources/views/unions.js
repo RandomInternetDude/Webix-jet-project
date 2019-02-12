@@ -1,5 +1,6 @@
-import {JetView} from "webix-jet";
-import {unions} from "models/unions";
+import { JetView } from "webix-jet";
+import NewUnionView from "./addUnionForm";
+import { unions } from "models/unions";
 
 export default class UnionsView extends JetView {
 	config(){
@@ -17,7 +18,8 @@ export default class UnionsView extends JetView {
 						{
 							view:"button", value:_("+"), type:"form", autowidth:true,
 							click:() => {
-								console.log('Add new?')
+								NewUnionView
+								console.log("hope that opened")
 							}
 						},
 						{
@@ -64,7 +66,7 @@ export default class UnionsView extends JetView {
 						template:obj => `
 							<div class="text">
 						  		<span class="username">${obj.Uname} </span>
-						  		<span class="money">${obj.crs}</span>
+						  		<span class="money">${obj.vendor_id}</span>
 							</div>`,
 						height:66
 					},
@@ -129,5 +131,6 @@ export default class UnionsView extends JetView {
 		});
 
 		this.on(this.app,"payment:history:ready",() => unions.waitData.then(() => list.select(1)));
+		
 	}
 }

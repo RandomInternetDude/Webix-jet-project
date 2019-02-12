@@ -9,7 +9,7 @@ export default class CardProcessorsView extends JetView {
 			type:"clean",
 			rows:[
 				{
-					template:_("Clients by occupation"), type:"header",
+					template:_("Customers by Region"), type:"header",
 					css:"webix_header chart_header"
 				},
 				{
