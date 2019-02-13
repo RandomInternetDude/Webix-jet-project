@@ -1,6 +1,6 @@
 // import {JetView} from "webix-jet";
 // import GeoView from "views/customers/geo";
-// import CardProcessorsView from "views/customers/positions";
+// import CardProcessorsView from "views/customers/cprocessors";
 
 // export default class StatisticsView extends JetView {
 // 	config(){

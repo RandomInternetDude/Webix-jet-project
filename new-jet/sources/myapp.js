@@ -23,7 +23,7 @@ export default class MyApp extends JetApp{
 			version 	: VERSION,
 			router 		: HashRouter,
 			debug 		: !PRODUCTION,
-			start 		: "/top/transactions",
+			start 		: "/top/customers",
 			theme		: theme || "",
 			dateFormat	: "%j %F, %H:%i",
 			listLength	: 50,
@@ -52,7 +52,7 @@ export default class MyApp extends JetApp{
 		});
 
 		this.attachEvent("app:error:resolve", function(err, url) {
-			webix.delay(() => this.show("/top/transactions"));
+			webix.delay(() => this.show("/top/customers"));
 		});
 	}
 }
