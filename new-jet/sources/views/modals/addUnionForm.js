@@ -1,7 +1,7 @@
 import {JetView} from "webix-jet";
 import "webix/tinymce/tinymce";
 
-export default class InformationView extends JetView {
+export default class NewUnionView extends JetView {
 	config(){
 		const _ = this.app.getService("locale")._;
 		const screen = this.app.config.size;
@@ -211,6 +211,10 @@ export default class InformationView extends JetView {
 			cols:[
 				{},
 				{
+					view:"button", value:_("<< Back"), autowidth:true,
+					click:() => this.hideForm()					
+				},
+				{
 					view:"button", value:_("Reset"), autowidth:true,
 					click:() => {
 						webix.confirm({
@@ -233,50 +237,54 @@ export default class InformationView extends JetView {
 						if (this.getRoot().validate()){
 							const newdata = this.getRoot().getValues();
 							this.app.callEvent("customer:save",[newdata]);
+							this.hideForm();
 						}
 					}
 				},
-				{
-					view:"button", value:_("Delete"), type:"form", autowidth:true,
-					click:() => {
-						webix.confirm({
-							text:"You are about to delete a union! <br/> Are you sure?",
-							ok:"Yes", cancel:"Cancel",
-							callback:(res)=>{
-								if(res){
-									const data = this.getRoot().getValues();
-									this.app.callEvent("customer:delete",[data])
-								}
-							}
-						})
-					}
-				}
+				// {
+				// 	view:"button", value:_("Delete"), type:"form", autowidth:true,
+				// 	click:() => {
+				// 		webix.confirm({
+				// 			text:"You are about to delete a union! <br/> Are you sure?",
+				// 			ok:"Yes", cancel:"Cancel",
+				// 			callback:(res)=>{
+				// 				if(this.getRoot().validate()){
+				// 					const data = this.getRoot().getValues();
+				// 					this.app.callEvent("customer:delete",[data])
+				// 				}
+				// 			}
+				// 		})
+				// 	}
+				// }
 			]
 		};
 
 		return {
-			view:"form",
-			rows:[
-				(screen !== "small") ? upper_section : upper_section_narrow,
-				notes,
-				buttons
-			],
-			rules:{
-				"Uname":webix.rules.isNotEmpty,
-				"charter_num":webix.rules.isNotEmpty,
-				"vendor_id":webix.rules.isNotEmpty,
-				"acct_manager":webix.rules.isNotEmpty,
-				"acct_manager_email":webix.rules.isNotEmpty,
-				"aws_url":webix.rules.isNotEmpty,
-				"aws_acct_id":webix.rules.isNotEmpty,
-				"admin":webix.rules.isNotEmpty,
-				"admin_email":webix.rules.isNotEmpty,
-				"admin_phone":webix.rules.isNotEmpty,
-				"num_cuu_provisioned":webix.rules.isNotEmpty,
-				"sftp_flag":webix.rules.isNotEmpty,
-				"activation_btn":webix.rules.isNotEmpty,
-				"freeze_flag":webix.rules.isNotEmpty
+			view:"window",
+			position:"center",
+			modal:true,
+			body:{
+				view:"form",
+				paddingY:20,
+				paddingx:20,
+				width:500,
+				elements:[
+						(screen !== "small") ? upper_section : upper_section_narrow,
+						notes,
+						buttons
+				],
+				rules:{
+					$all:webix.rules.isNotEmpty
+				},
+				margin:10,
+				cols:[
+					{},
+					notes,
+					buttons
+				]
 			}
+	
+			
 		};
 	}
 	init(form){
@@ -288,12 +296,20 @@ export default class InformationView extends JetView {
 
 		this.on(this.app,"union:select",union => form.setValues(union));
 
-		this.on(this.app,"customer:delete", union => form.setValues(union));
-
+		this.on(this.app, ()=>{
+			view.show();
+		})
 		this.getLocalizedComboOptions();
 	}
 	getLocalizedComboOptions(){
 		const _ = this.app.getService("locale")._;
-
+	}
+	hideForm(){
+		this.getRoot().hide();
+		this.form.clear();
+		this.form.clearValidation();
+	}
+	showWindow(){
+		this.getRoot().show()
 	}
 }

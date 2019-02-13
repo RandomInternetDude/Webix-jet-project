@@ -1,5 +1,5 @@
 import { JetView } from "webix-jet";
-import NewUnionView from "./addUnionForm";
+import NewUnionView from "./modals/addUnionForm";
 import { unions } from "models/unions";
 
 export default class UnionsView extends JetView {
@@ -16,10 +16,9 @@ export default class UnionsView extends JetView {
 						{ view:"label", label:_("Unions"), localId:"label" },
 						{ width:4 },
 						{
-							view:"button", value:_("+"), type:"form", autowidth:true,
+							view:"button", value:"+", type:"form", autowidth:true,
 							click:() => {
-								NewUnionView
-								console.log("hope that opened")
+								this.modal.showWindow();
 							}
 						},
 						{
@@ -91,6 +90,8 @@ export default class UnionsView extends JetView {
 		
 		list.sync(unions);
 
+		// this.modal = this.ui(NewUnionView);
+
 		unions.waitData.then(() => {
 			if (this.getUrl()[1].page !== "customers"){
 				const cur_user = this.getParam("user",true);
@@ -104,6 +105,12 @@ export default class UnionsView extends JetView {
 			unions.updateItem(id,data);
 			webix.message(_("Saved"));
 		});
+
+		this.on(this.app, "customer:delete", (data)=>{
+			const id = data.id || this.getParam("user",true);
+			unions.remove(id,data);
+			webix.message(_("Deleted"));
+		})
 
 		this.on(this.app,"form:update",(id) => {
 			unions.waitData.then(() => {
