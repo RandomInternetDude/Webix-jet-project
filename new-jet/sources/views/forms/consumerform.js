@@ -239,15 +239,11 @@ export default class ConsumerForm extends JetView {
 				{
 					view:"button", value:_("Save"), type:"form", autowidth:true,
 					click:() => {
-                        const id = values.id;
-						if (id){
+                        if (this.getRoot().validate()){
 							const newdata = this.getRoot().getValues();
-                            this.app.callEvent("customer:save",[newdata]);
-                            this.return()
-						} else {
-                            unions.add(values);
-                            this.return()
-                        }
+                            this.app.callEvent("customer:post",[newdata]);
+                            this.return();
+						}
 					}
 				},
 			]
@@ -265,11 +261,11 @@ export default class ConsumerForm extends JetView {
 				"charter_num":webix.rules.isNotEmpty,
 				"vendor_id":webix.rules.isNotEmpty,
 				"acct_manager":webix.rules.isNotEmpty,
-				"acct_manager_email":webix.rules.isNotEmpty,
+				"acct_manager_email":webix.rules.isEmail.isNotEmpty,
 				"aws_url":webix.rules.isNotEmpty,
 				"aws_acct_id":webix.rules.isNotEmpty,
 				"admin":webix.rules.isNotEmpty,
-				"admin_email":webix.rules.isNotEmpty,
+				"admin_email":webix.rules.isEmail.isNotEmpty,
 				"admin_phone":webix.rules.isNotEmpty,
 				"num_cuu_provisioned":webix.rules.isNotEmpty,
 				"sftp_flag":webix.rules.isNotEmpty,
@@ -283,7 +279,9 @@ export default class ConsumerForm extends JetView {
 
 		this.app.callEvent("form:update",[this.getParam("user",true)]);
 
-		this.on(this.app,"customer:updatedata",union => form.setValues(union));
+        this.on(this.app,"customer:updatedata",union => form.setValues(union));
+        
+        this.on(this.app,"customer:post", union => form.setValues(union));
 
 		this.on(this.app,"union:select",union => form.setValues(union));
 
@@ -300,10 +298,18 @@ export default class ConsumerForm extends JetView {
         unions.waitData.then(()=>{
             const id = this.getParam("id");
 
-            if(id && union.exists(id)){
-                form.setValues(customers.getItem(id));
+            if(id && unions.exists(id)){
+                form.setValues(unions.getItem(id));
             }
         });
+    }
+    saveUnion(values){
+        const id = values.id
+        if(id) { 
+            const newdata = this.getRoot().getValues();
+            this.app.callEvent("customer:post",[newdata]);
+            
+        }
     }
 
     return(){

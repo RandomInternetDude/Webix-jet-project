@@ -49,6 +49,8 @@ export default class ConsumerView extends JetView {
         const id = this.getParam("id");
         if(id){
             this.$$("multi").setValue("formView")
+        } else {
+            this.$$("multi").setValue("gridView")
         }
     }
 }
