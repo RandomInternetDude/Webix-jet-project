@@ -1,6 +1,9 @@
 import { JetView } from "webix-jet";
-import NewUnionView from "./modals/addUnionForm";
 import { unions } from "models/unions";
+
+
+
+
 
 export default class UnionsView extends JetView {
 	config(){
@@ -15,12 +18,6 @@ export default class UnionsView extends JetView {
 					elements:[
 						{ view:"label", label:_("Unions"), localId:"label" },
 						{ width:4 },
-						{
-							view:"button", value:"+", type:"form", autowidth:true,
-							click:() => {
-								this.modal.showWindow();
-							}
-						},
 						{
 							view:"text", localId:"search", hidden:true,
 							on:{
@@ -91,6 +88,7 @@ export default class UnionsView extends JetView {
 		list.sync(unions);
 
 		// this.modal = this.ui(NewUnionView);
+		// this.win2 = this.ui(WindowsView);
 
 		unions.waitData.then(() => {
 			if (this.getUrl()[1].page !== "customers"){

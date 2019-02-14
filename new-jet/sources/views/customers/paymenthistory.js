@@ -25,7 +25,7 @@ export default class PaymentHistoryView extends JetView{
 				},
 				{
 					id:"item", header:"Item", sort:"string",
-					fillspace:8, tooltip:"#item#"
+					fillspace:1, tooltip:"#item#"
 				},
 				{
 					id:"number", header:"Quantity", sort:"int",
