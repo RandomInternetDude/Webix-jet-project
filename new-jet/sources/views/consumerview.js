@@ -12,8 +12,7 @@ export default class ConsumerView extends JetView {
                     elements:[
                         {
                             height:50, css:"title", borderless:true,
-                            template:`<h3 class='header'>Credit Unions Provisioning Data</h3>
-                                      <div class='details>(info & editing)</div>`
+                            template:`<h3 class='header'>Credit Unions Provisioning Data</h3>`
                         },
                         {
                             view:"button", id:"add", type:"form",
@@ -25,7 +24,7 @@ export default class ConsumerView extends JetView {
                     ]
                 },
                 {
-                    animate:true,
+                    animate:false,
                     fitbiggest:true,
                     localId:"multi",
                     cells:[

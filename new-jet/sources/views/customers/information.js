@@ -62,7 +62,7 @@ export default class InformationView extends JetView {
 			value:1,
 			options:[
 				{ id:1, value:_("Yes") },
-				{ id:2, value:_("No") }
+				{ id:0, value:_("No") }
 			],
 			invalidMessage:_("Selection is required")
 		}
@@ -73,7 +73,7 @@ export default class InformationView extends JetView {
 			value:1,
 			options:[
 				{ id:1, value:_("Yes") },
-				{ id:2, value:_("No") }
+				{ id:0, value:_("No") }
 			],
 			invalidMessage:_("Selection is required")
 		}
@@ -84,7 +84,7 @@ export default class InformationView extends JetView {
 			value:1,
 			options:[
 				{ id:1, value:_("Yes") },
-				{ id:2, value:_("No") }
+				{ id:0, value:_("No") }
 			],
 			invalidMessage:_("Selection is required")
 		};

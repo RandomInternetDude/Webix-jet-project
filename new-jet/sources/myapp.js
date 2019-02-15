@@ -8,10 +8,10 @@ export default class MyApp extends JetApp{
 			return screen > 1210 ? "wide" : (screen > 1060 ? "mid" : "small");
 		};
 
-		let theme = "";
+		let theme = "material";
 		let cookies = true;
 		try {
-			theme = webix.storage.local.get("bank_app_theme");
+			theme = webix.storage.local.get("material_theme");
 		}
 		catch(err){
 			cookies = false;
@@ -23,8 +23,8 @@ export default class MyApp extends JetApp{
 			version 	: VERSION,
 			router 		: HashRouter,
 			debug 		: !PRODUCTION,
-			start 		: "/top/customers",
-			theme		: theme || "",
+			start 		: "/top/consumerview",
+			theme		: theme || "material",
 			dateFormat	: "%j %F, %H:%i",
 			listLength	: 50,
 			size		: size(),

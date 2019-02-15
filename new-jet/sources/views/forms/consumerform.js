@@ -61,7 +61,6 @@ export default class ConsumerForm extends JetView {
 		const sftp_flag = {
 			view:"radio", name:"sftp_flag",
 			label:_("SFTP"), labelPosition:"top",
-			value:1,
 			options:[
 				{ id:1, value:_("Yes") },
 				{ id:2, value:_("No") }
@@ -72,7 +71,6 @@ export default class ConsumerForm extends JetView {
 		const activation_btn = {
 			view:"radio", name:"activation_btn",
 			label:_("Account Active"), labelPosition:"top",
-			value:1,
 			options:[
 				{ id:1, value:_("Yes") },
 				{ id:2, value:_("No") }
@@ -83,7 +81,6 @@ export default class ConsumerForm extends JetView {
 		const freeze_flag = {
 			view:"radio", name:"freeze_flag",
 			label:_("Freeze Account"), labelPosition:"top",
-			value:1,
 			options:[
 				{ id:1, value:_("Yes") },
 				{ id:2, value:_("No") }
