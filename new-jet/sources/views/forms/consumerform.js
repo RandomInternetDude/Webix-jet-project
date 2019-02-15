@@ -239,11 +239,10 @@ export default class ConsumerForm extends JetView {
 				{
 					view:"button", value:_("Save"), type:"form", autowidth:true,
 					click:() => {
-                        if (this.getRoot().validate()){
-							const newdata = this.getRoot().getValues();
-                            this.app.callEvent("customer:post",[newdata]);
-                            this.return();
-						}
+                        const form = this.getRoot();
+                        if (form.validate()){
+                            this.saveUnion(form.getValues());
+                        }
 					}
 				},
 			]
@@ -261,11 +260,11 @@ export default class ConsumerForm extends JetView {
 				"charter_num":webix.rules.isNotEmpty,
 				"vendor_id":webix.rules.isNotEmpty,
 				"acct_manager":webix.rules.isNotEmpty,
-				"acct_manager_email":webix.rules.isEmail.isNotEmpty,
+				"acct_manager_email":webix.rules.isNotEmpty,
 				"aws_url":webix.rules.isNotEmpty,
 				"aws_acct_id":webix.rules.isNotEmpty,
 				"admin":webix.rules.isNotEmpty,
-				"admin_email":webix.rules.isEmail.isNotEmpty,
+				"admin_email":webix.rules.isNotEmpty,
 				"admin_phone":webix.rules.isNotEmpty,
 				"num_cuu_provisioned":webix.rules.isNotEmpty,
 				"sftp_flag":webix.rules.isNotEmpty,
@@ -308,7 +307,7 @@ export default class ConsumerForm extends JetView {
         if(id) { 
             const newdata = this.getRoot().getValues();
             this.app.callEvent("customer:post",[newdata]);
-            
+            this.return()
         }
     }
 

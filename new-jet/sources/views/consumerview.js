@@ -1,4 +1,5 @@
 import {JetView} from 'webix-jet';
+import { unions } from '../models/unions';
 import ConsumerDataView from './consumerdataview';
 import ConsumerForm from './forms/consumerform';
 
@@ -41,9 +42,31 @@ export default class ConsumerView extends JetView {
                     } else {
                         button.show();
                     }
+                },
+                onAfterSelect:id => {
+                    const union = unions.getItem(id);
+                    this.app.callEvent("union:select",[union]);
+                },
+                onItemDblClick:id => {
+                    if (this.getUrl()[0].page !== "customers")
+                        this.show("customers?user="+id+"/information");
+                    else this.show("information");
                 }
             }
         }
+    }
+    init(gridView){
+    
+		
+		gridView.sync(unions);
+
+		unions.waitData.then(() => {
+			if (this.getUrl()[1].page !== "customers"){
+				const cur_user = this.getParam("user",true);
+				gridView.select(cur_user);
+				gridView.showItem(cur_user);
+			}
+		});
     }
     urlChange(){
         const id = this.getParam("id");

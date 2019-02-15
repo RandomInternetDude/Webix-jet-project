@@ -21,7 +21,8 @@ export default class ConsumerDataView extends JetView {
                 { id:"notes", header:["Notes", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:true },
             ],
             onClick:{
-                "fa-pencil":(e, id)=>{
+                "fa-pencil":(id)=>{
+                    this.$$("multi").setValue("formView")
                     this.show("unions?id="+id.row)
                     console.log("clicked")
 
