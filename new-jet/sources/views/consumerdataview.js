@@ -6,10 +6,11 @@ export default class ConsumerDataView extends JetView {
 		return {
 			view:"datatable",
             select:true,
+            localId:"list",
             scroll:"y",
 			tooltip:true,
 			columns:[
-                { id:"edit", header:"", width:35, template:"{common.editIcon()}" ,click:()=>{this.edit()}},
+                // { id:"edit", header:"", width:35, template:"{common.editIcon()}" ,click:()=>{this.edit()}},
 				{ id:"Uname", header:["Credit Union", {content:"textFilter"}], sort:"string",adjust:"header", },
 				{ id:"charter_num", header:["Charter Number", {content:"textFilter"}], sort:"int",adjust:"header" },
                 { id:"acct_manager", header:["Account Manager", {content:"textFilter"}], sort:"string",adjust:"header" },
@@ -29,6 +30,25 @@ export default class ConsumerDataView extends JetView {
                     // const u = this.getRoot().getItem(id);
                     // this.app.callEvent("form:fill",[u])
                 }
+            },
+            on:{
+                onViewChange:(prev)=>{
+                    const button = this.$$("add");
+                    if(prev == "gridView"){
+                        button.hide();
+                    } else {
+                        button.show();
+                    }
+                },
+                onAfterSelect:id => {
+                    const union = unions.getItem(id);
+                    this.app.callEvent("union:select",[union]);
+                },
+                onItemDblClick:id => {
+                    if (this.getUrl()[0].page !== "customers")
+                        this.show("customers?user="+id+"/information");
+                    else this.show("information");
+                }
             }
 		};
 	}
@@ -39,7 +59,19 @@ export default class ConsumerDataView extends JetView {
 		view.sync(unions,function(){
 			if (cur_user) this.filter(obj => obj.id%6 === cur_user%6);
 		});
-		
+        const _ = this.app.getService("locale")._;
+        const list = this.$$("list")
+            
+            list.sync(unions);
+    
+            unions.waitData.then(() => {
+                if (this.getUrl()[1].page !== "customers"){
+                    const cur_user = this.getParam("user",true);
+                    gridView.select(cur_user);
+                    gridView.showItem(cur_user);
+                }
+            });
+            
 		this.on(this.app,"customer:select",unions => {
 			unions.waitData.then(() => {
 				view.filter(obj => {

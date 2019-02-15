@@ -239,17 +239,17 @@ export default class ConsumerForm extends JetView {
 				{
 					view:"button", value:_("Save"), type:"form", autowidth:true,
 					click:() => {
-                        const form = this.getRoot();
-                        if (form.validate()){
-                            this.saveUnion(form.getValues());
-                        }
-					}
+                     if(this.getRoot().validate()){
+                        this.saveUnion();
+                     }
+                    }
 				},
 			]
 		};
 
 		return {
-			view:"form",
+            view:"form",
+            localId:"form",
 			rows:[
 				(screen !== "small") ? upper_section : upper_section_narrow,
 				notes,
@@ -302,13 +302,10 @@ export default class ConsumerForm extends JetView {
             }
         });
     }
-    saveUnion(values){
-        const id = values.id
-        if(id) { 
-            const newdata = this.getRoot().getValues();
-            this.app.callEvent("customer:post",[newdata]);
-            this.return()
-        }
+    saveUnion(){
+        const newdata = this.$$("form").getValues();
+        this.app.callEvent("customer:post",[newdata]);
+        this.return()
     }
 
     return(){

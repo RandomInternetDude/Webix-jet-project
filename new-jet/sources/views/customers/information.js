@@ -210,6 +210,9 @@ export default class InformationView extends JetView {
 			margin:10,
 			cols:[
 				{},
+
+
+
 				{
 					view:"button", value:_("Reset"), autowidth:true,
 					click:() => {
@@ -233,6 +236,7 @@ export default class InformationView extends JetView {
 						if (this.getRoot().validate()){
 							const newdata = this.getRoot().getValues();
 							this.app.callEvent("customer:save",[newdata]);
+							this.return()
 						}
 					}
 				},
@@ -295,5 +299,8 @@ export default class InformationView extends JetView {
 	getLocalizedComboOptions(){
 		const _ = this.app.getService("locale")._;
 
+	}
+	return(){
+		this.show("/top/consumerview")
 	}
 }

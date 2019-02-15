@@ -99,8 +99,12 @@ export default class UnionsView extends JetView {
 		});
 
 		this.on(this.app,"customer:post", (data)=>{
-			const id = data.id || this.getParam("user",true);
-			unions.add(id, data);
+			unions.add(data);
+			list.showItem(list.getLastId())
+			if(url[0].page === "customers"){
+				const cust = this.getParentView().$$("form:update").getSelectedId();
+				if (proj) this.app.callEvent("customer:updatedata",[cust])
+			}
 			webix.message(_("Success"))
 		})
 
