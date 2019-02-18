@@ -8,7 +8,8 @@ export default class ConsumerDataView extends JetView {
             select:true,
             localId:"list",
             scroll:"y",
-			tooltip:true,
+            tooltip:true,
+            data:unions,
 			columns:[
                 // { id:"edit", header:"", width:35, template:"{common.editIcon()}" ,click:()=>{this.edit()}},
 				{ id:"Uname", header:["Credit Union", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:3 },
@@ -44,10 +45,10 @@ export default class ConsumerDataView extends JetView {
 	}
 	init(){
 		
-        const _ = this.app.getService("locale")._;
-        const list = this.$$("list")
+        // const _ = this.app.getService("locale")._;
+        // const list = this.$$("list")
             
-        list.sync(unions);
+        // list.sync(unions);
 
         unions.waitData.then(() => {
             if (this.getUrl()[1].page !== "customers"){
@@ -76,7 +77,7 @@ export default class ConsumerDataView extends JetView {
         console.log('btn clicked')
     }
     checkbox(obj, common, value){
-        if(value === 1){
+        if(value == 1){
             return "<div class='webix_table_checkbox checked'>Yes</div>"
         } else {
             return "<div class='webix_table_checkbox notchecked'>No</div>"

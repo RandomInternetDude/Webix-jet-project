@@ -272,6 +272,7 @@ export default class ConsumerForm extends JetView {
 	}
 	init(form){
 		
+		form.bind(unions)
 
 		this.app.callEvent("form:update",[this.getParam("user",true)]);
 
@@ -300,8 +301,9 @@ export default class ConsumerForm extends JetView {
         });
     }
     saveUnion(){
-        const newdata = this.$$("form").getValues();
-        this.app.callEvent("customer:post",[newdata]);
+        this.$$("form").save();
+        const union = this.$$("form").getValues();
+        this.app.callEvent("add:union",[union]);
         this.return()
     }
 
