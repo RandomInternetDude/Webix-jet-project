@@ -41,12 +41,12 @@ export default class ConsumerForm extends JetView {
 					placeholder:"Jsanchez@trellance.com",
 					invalidMessage:_("Account Manager Email is required")
 				},
-				// {
-				// 	view:"datepicker", name:"Lprovision",
-				// 	label:_("Last Provision"), labelPosition:"top",
-				// 	placeholder:_("Click to select"),
-				// 	format:webix.Date.dateToStr("%d %M %Y")
-				// }
+				{
+					view:"text", name:"num_cuu_provisioned",
+					label:_("Number of Credit Union Users Provisioned"), labelPosition:"top",
+					placeholder:"Number of Credit Union Users Provisioned",
+					invalidMessage:_("Number of Users is required")
+				},
 			]
 		};
 
@@ -87,6 +87,10 @@ export default class ConsumerForm extends JetView {
 			],
 			invalidMessage:_("Selection is required")
 		};
+		const invoice_audit = {
+			view:"checkbox", name:"invoice_audit",
+			label:_("Invoice Audit"), labelPosition:"top"
+		}
 
 		const left_main = {
 			gravity:3,
@@ -104,7 +108,8 @@ export default class ConsumerForm extends JetView {
 			rows:[
 				sftp_flag,
 				activation_btn,
-				freeze_flag
+				freeze_flag,
+				invoice_audit
 			]
 		}
 
@@ -149,14 +154,7 @@ export default class ConsumerForm extends JetView {
 					label:_("Admin Phone"), labelPosition:"top",
 					placeholder:"888-888-8888",
 					invalidMessage:_("Admin Phone is required")
-				},
-				{
-					view:"text", name:"num_cuu_provisioned",
-					label:_("Number of Credit Union Users Provisioned"), labelPosition:"top",
-					placeholder:"Number of Credit Union Users Provisioned",
-					invalidMessage:_("Number of Users is required")
-				},
-		
+				}
 			]
 		};
 
@@ -271,18 +269,20 @@ export default class ConsumerForm extends JetView {
 		};
 	}
 	init(form){
-		
+		form.clear();
+        form.clearValidation();
 		form.bind(unions)
+		
 
-		this.app.callEvent("form:update",[this.getParam("user",true)]);
+		// this.app.callEvent("form:update",[this.getParam("user",true)]);
 
-        this.on(this.app,"customer:updatedata",union => form.setValues(union));
+        // this.on(this.app,"customer:updatedata",union => form.setValues(union));
         
-        this.on(this.app,"customer:post", union => form.setValues(union));
+        // this.on(this.app,"customer:post", union => form.setValues(union));
 
-		this.on(this.app,"union:select",union => form.setValues(union));
+		// this.on(this.app,"union:select",union => form.setValues(union));
 
-		this.on(this.app,"customer:delete", union => form.setValues(union));
+		// this.on(this.app,"customer:delete", union => form.setValues(union));
 
 		this.getLocalizedComboOptions();
 	}
@@ -304,7 +304,8 @@ export default class ConsumerForm extends JetView {
         this.$$("form").save();
         const union = this.$$("form").getValues();
         this.app.callEvent("add:union",[union]);
-        this.return()
+		this.return()
+		
     }
 
     return(){

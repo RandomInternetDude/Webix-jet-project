@@ -39,22 +39,16 @@ export default class InformationView extends JetView {
 					placeholder:"Jsanchez@trellance.com",
 					invalidMessage:_("Account Manager Email is required")
 				},
-				// {
-				// 	view:"datepicker", name:"Lprovision",
-				// 	label:_("Last Provision"), labelPosition:"top",
-				// 	placeholder:_("Click to select"),
-				// 	format:webix.Date.dateToStr("%d %M %Y")
-				// }
+				{
+					view:"text", name:"num_cuu_provisioned",
+					label:_("Number of Credit Union Users Provisioned"), labelPosition:"top",
+					placeholder:"Number of Credit Union Users Provisioned",
+					invalidMessage:_("Number of Users is required")
+				},
 			]
 		};
 
-		// const Cprocessor = {
-		// 	view:"richselect", name:"Cprocessor",
-		// 	localId:"Cprocessor:combo",
-		// 	label:_("Card Processor"), labelPosition:"top",
-		// 	placeholder:_("Click to select"),
-		// 	options:[]
-		// };
+
 
 		const sftp_flag = {
 			view:"radio", name:"sftp_flag",
@@ -89,6 +83,11 @@ export default class InformationView extends JetView {
 			invalidMessage:_("Selection is required")
 		};
 
+		const invoice_audit = {
+			view:"checkbox", name:"invoice_audit",
+			label:_("Invoice Audit"), labelPosition:"top"
+		}
+
 		const left_main = {
 			gravity:3,
 			minWidth:200,
@@ -105,7 +104,8 @@ export default class InformationView extends JetView {
 			rows:[
 				sftp_flag,
 				activation_btn,
-				freeze_flag
+				freeze_flag,
+				invoice_audit
 			]
 		}
 
@@ -116,13 +116,6 @@ export default class InformationView extends JetView {
 			minWidth:200,
 			margin:10,
 			rows:[
-				// {
-				// 	view:"richselect", name:"city",
-				// 	localId:"cities:combo",
-				// 	label:_("City, country"), labelPosition:"top",
-				// 	placeholder:_("Click to select"),
-				// 	options:[]
-				// },
 				{
 					view:"text", name:"aws_url", label:_("Aws Url"),
 					labelPosition:"top", placeholder:_("Aws Url"),
@@ -150,14 +143,7 @@ export default class InformationView extends JetView {
 					label:_("Admin Phone"), labelPosition:"top",
 					placeholder:"888-888-8888",
 					invalidMessage:_("Admin Phone is required")
-				},
-				{
-					view:"text", name:"num_cuu_provisioned",
-					label:_("Number of Credit Union Users Provisioned"), labelPosition:"top",
-					placeholder:"Number of Credit Union Users Provisioned",
-					invalidMessage:_("Number of Users is required")
-				},
-		
+				}		
 			]
 		};
 
@@ -236,7 +222,7 @@ export default class InformationView extends JetView {
 						if (this.getRoot().validate()){
 							const newdata = this.getRoot().getValues();
 							this.app.callEvent("customer:save",[newdata]);
-							this.return()
+							this.return();
 						}
 					}
 				},
@@ -249,7 +235,8 @@ export default class InformationView extends JetView {
 							callback:(res)=>{
 								if(res){
 									const data = this.getRoot().getValues();
-									this.app.callEvent("customer:delete",[data])
+									this.app.callEvent("customer:delete",[data]);
+									this.return();
 								}
 							}
 						})

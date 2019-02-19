@@ -11,16 +11,14 @@ export default class ConsumerDataView extends JetView {
             tooltip:true,
             data:unions,
 			columns:[
-                // { id:"edit", header:"", width:35, template:"{common.editIcon()}" ,click:()=>{this.edit()}},
 				{ id:"Uname", header:["Credit Union", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:3 },
 				{ id:"charter_num", header:["Charter Number", {content:"textFilter"}], sort:"int",adjust:"header",fillspace:3 },
                 { id:"acct_manager", header:["Account Manager", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:3},
                 { id:"vendor_id", header:["Vendor ID", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:3 },
                 { id:"aws_acct_id", header:["Aws Account ID", {content:"textFilter"}], sort:"string",adjust:"header" ,fillspace:3},
-                { id:"activation_btn", header:["Active", {content:"textFilter"}], sort:"int",adjust:"header" , template:this.checkbox },
-                { id:"sftp_flag", header:["SFTP", {content:"textFilter"}], sort:"int",adjust:"header", template:this.checkbox},
-                { id:"freeze_flag", header:["Freeze Flag", {content:"textFilter"}], sort:"int",adjust:"header", template:this.checkbox},
-                // { id:"notes", header:["Notes", {content:"textFilter"}], sort:"",adjust:"header", fillspace:true },
+                { id:"activation_btn", header:["Active", {content:"textFilter"}], sort:"string",adjust:"header" , template:this.checkbox },
+                { id:"sftp_flag", header:["SFTP", {content:"textFilter"}], sort:"string",adjust:"header", template:this.checkbox},
+                { id:"freeze_flag", header:["Freeze Flag", {content:"textFilter"}], sort:"string",adjust:"header", template:this.checkbox}
             ],
             on:{
                 onViewChange:(prev)=>{
@@ -44,11 +42,13 @@ export default class ConsumerDataView extends JetView {
 		};
 	}
 	init(){
-		
-        // const _ = this.app.getService("locale")._;
-        // const list = this.$$("list")
-            
-        // list.sync(unions);
+        
+        const list = this.$$("list");
+
+        this.on(this.app,"customer:new", nada => {
+            list.unselectAll();
+        });
+
 
         unions.waitData.then(() => {
             if (this.getUrl()[1].page !== "customers"){
@@ -72,9 +72,6 @@ export default class ConsumerDataView extends JetView {
 				});
 			});
 		});
-    }
-    edit(){
-        console.log('btn clicked')
     }
     checkbox(obj, common, value){
         if(value == 1){

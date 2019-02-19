@@ -1,19 +1,10 @@
 import {JetView} from "webix-jet";
-import {getLangsList} from "models/langslist";
 
-import "locales/webix/de.js";
-import "locales/webix/es.js";
-import "locales/webix/ko.js";
-import "locales/webix/ru.js";
-import "locales/webix/zh.js";
 
 export default class SettingsView extends JetView {
 	config(){
-		const _ = this.app.getService("locale")._;
-		const lang = this.app.getService("locale").getLang();
 		const theme = this.app.config.theme;
 		const combo_theme_value = theme ? "1" : "0";
-		const date_combo_value = this.app.config.dateFormat;
 		const list_length_slider_value = this.app.config.listLength;
 
 		return {
@@ -50,7 +41,7 @@ export default class SettingsView extends JetView {
 								{
 									label:_("Max list length"), view:"slider",
 									name:"maxlist", minWidth:207,
-									min:10, max:50, value:list_length_slider_value, step:10,
+									min:10, max:300, value:list_length_slider_value, step:10,
 									title:"#value#", gravity:3,
 									on:{
 										onChange:newv => this.app.config.listLength = newv

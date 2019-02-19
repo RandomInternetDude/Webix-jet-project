@@ -18,13 +18,14 @@ export default class ConsumerView extends JetView {
                             view:"button", id:"add", type:"form",
                             label:"+ Add New", width:140,
                             click:()=>{
+                                this.app.callEvent("customer:new");
                                 this.$$("multi").setValue("formView");
                             }
                         }
                     ]
                 },
                 {
-                    animate:false,
+                    animate:true,
                     fitbiggest:true,
                     localId:"multi",
                     cells:[
@@ -32,44 +33,12 @@ export default class ConsumerView extends JetView {
                         {id:"formView", $subview:ConsumerForm}
                     ]
                 }
-            ],
-            // on:{
-            //     onViewChange:(prev)=>{
-            //         const button = this.$$("add");
-            //         if(prev == "gridView"){
-            //             button.hide();
-            //         } else {
-            //             button.show();
-            //         }
-            //     },
-            //     onAfterSelect:id => {
-            //         const union = unions.getItem(id);
-            //         this.app.callEvent("union:select",[union]);
-            //     },
-            //     onItemDblClick:id => {
-            //         if (this.getUrl()[0].page !== "customers")
-            //             this.show("customers?user="+id+"/consumerview");
-            //         else this.show("consumerview");
-            //     }
-            // }
+            ]
         }
     }
-    init(){
-    // const _ = this.app.getService("locale")._;
-    // const list = this.$$("list")
-		
-	// 	list.sync(unions);
 
-	// 	unions.waitData.then(() => {
-	// 		if (this.getUrl()[1].page !== "customers"){
-	// 			const cur_user = this.getParam("user",true);
-	// 			gridView.select(cur_user);
-	// 			gridView.showItem(cur_user);
-	// 		}
-	// 	});
-    }
     urlChange(){
-        const id = this.getParam("id");
+        const id = this.getParam(id);
         if(id){
             this.$$("multi").setValue("formView")
         } else {
