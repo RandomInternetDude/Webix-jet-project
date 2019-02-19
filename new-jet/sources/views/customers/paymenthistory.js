@@ -46,10 +46,10 @@ export default class PaymentHistoryView extends JetView{
 			if (cur_user) this.filter(obj => obj.id%6 === cur_user%6);
 		});
 		
-		this.on(this.app,"person:select",person => {
+		this.on(this.app,"union:select",union => {
 			individualpayments.waitData.then(() => {
 				view.filter(obj => {
-					return obj.id%6 === person.id%6;
+					return obj.id%6 === union.id%6;
 				});
 			});
 		});

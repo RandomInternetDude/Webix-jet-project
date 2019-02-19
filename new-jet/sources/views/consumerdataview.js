@@ -2,6 +2,11 @@ import {JetView} from 'webix-jet';
 import { unions } from "models/unions";
 export default class ConsumerDataView extends JetView {
     config(){
+
+        const flag = [
+            {id:0, No:"No"},
+            {id:1, Yes:"Yes"},
+        ]
 	
 		return {
 			view:"datatable",
@@ -16,9 +21,9 @@ export default class ConsumerDataView extends JetView {
                 { id:"acct_manager", header:["Account Manager", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:3},
                 { id:"vendor_id", header:["Vendor ID", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:3 },
                 { id:"aws_acct_id", header:["Aws Account ID", {content:"textFilter"}], sort:"string",adjust:"header" ,fillspace:3},
-                { id:"activation_btn", header:["Active", {content:"textFilter"}], sort:"string",adjust:"header" , template:this.checkbox },
-                { id:"sftp_flag", header:["SFTP", {content:"textFilter"}], sort:"string",adjust:"header", template:this.checkbox},
-                { id:"freeze_flag", header:["Freeze Flag", {content:"textFilter"}], sort:"string",adjust:"header", template:this.checkbox}
+                { id:"activation_btn", header:["Active", {content:"textFilter"}], sort:"text",adjust:"header" , template:this.checkbox, editor:"combo", options:flag },
+                { id:"sftp_flag", header:["SFTP", {content:"textFilter"}], sort:"text",adjust:"header", template:this.checkbox, editor:"combo", options:flag},
+                { id:"freeze_flag", header:["Freeze Flag", {content:"textFilter"}], sort:"text",adjust:"header", template:this.checkbox, editor:"combo", options:flag}
             ],
             on:{
                 onViewChange:(prev)=>{
@@ -74,11 +79,12 @@ export default class ConsumerDataView extends JetView {
 		});
     }
     checkbox(obj, common, value){
-        if(value == 1){
-            return "<div class='webix_table_checkbox checked'>Yes</div>"
-        } else {
-            return "<div class='webix_table_checkbox notchecked'>No</div>"
-        }
+        return value ? 'Yes' : 'No';
+        // if(value == 1){
+        //     return "<div class='webix_table_checkbox checked'>Yes</div>"
+        // } else {
+        //     return "<div class='webix_table_checkbox notchecked'>No</div>"
+        // }
     }
 }
 
