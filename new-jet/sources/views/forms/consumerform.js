@@ -14,7 +14,7 @@ export default class ConsumerForm extends JetView {
 				{
 					view:"text", name:"Uname",
 					label:_("Credit Union Name"), labelPosition:"top",
-					placeholder:_("Cridit Union Name"),
+					placeholder:_("Credit Union Name"),
 					invalidMessage:_("Credit Union's name is required")
 				},
 				{
@@ -26,7 +26,7 @@ export default class ConsumerForm extends JetView {
 				{
 					view:"text", name:"vendor_id",
 					label:_("Vendor ID"), labelPosition:"top",
-					placeholder:_("Vender ID"),
+					placeholder:_("Vendor ID"),
 					invalidMessage:_("Vendor ID is required")
 				},
 				{

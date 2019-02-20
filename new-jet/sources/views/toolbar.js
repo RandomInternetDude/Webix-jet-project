@@ -33,11 +33,6 @@ export default class ToolView extends JetView {
 									click:function(){
 										this.$scope.notifications.showPopup(this.$view);
 									}
-								},
-								{
-									view:"icon", icon:"mdi mdi-settings",
-									tooltip:_("Go to settings"),
-									click:() => this.show("/top/settings")
 								}
 							]
 						}
