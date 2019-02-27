@@ -1,3 +1,3 @@
 export const unions = new webix.DataCollection({
-	url:"data/unions.json"
+	url:"http://ironsafe.ctl8u909gl7g.us-east-1.rds.amazonaws.com/"
 });
