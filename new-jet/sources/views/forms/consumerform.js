@@ -244,7 +244,7 @@ export default class ConsumerForm extends JetView {
 
 		return {
             view:"form",
-            localId:"form",
+			localId:"form",
 			rows:[
 				(screen !== "small") ? upper_section : upper_section_narrow,
 				notes,
@@ -301,9 +301,10 @@ export default class ConsumerForm extends JetView {
         });
     }
     saveUnion(){
-        this.$$("form").save();
+		this.$$("form").save();		
         const union = this.$$("form").getValues();
-        this.app.callEvent("add:union",[union]);
+		this.app.callEvent("add:union",[union])
+		console.log('hot cakes')
 		this.return()
 		
     }

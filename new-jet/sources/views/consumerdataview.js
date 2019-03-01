@@ -15,6 +15,10 @@ export default class ConsumerDataView extends JetView {
             scroll:"y",
             tooltip:true,
             data:unions,
+            save: {
+                url: 'json->/api/central/union',
+                updateFromResponse: true
+            },
 			columns:[
 				{ id:"Uname", header:["Credit Union", {content:"textFilter"}], sort:"string",adjust:"header", fillspace:3 },
 				{ id:"charter_num", header:["Charter Number", {content:"textFilter"}], sort:"int",adjust:"header",fillspace:3 },
