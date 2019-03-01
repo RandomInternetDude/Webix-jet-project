@@ -62,7 +62,9 @@ module.exports = function(env) {
 			})
 		],
 		devServer:{
-			stats:"errors-only"
+			proxy:{
+				"/api/central":"http://localhost:8000/"
+			}
 		}
 	};
 
