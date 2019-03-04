@@ -40,13 +40,7 @@ export default class ConsumerForm extends JetView {
 					label:_("Account Manager Email"), labelPosition:"top",
 					placeholder:"Jsanchez@trellance.com",
 					invalidMessage:_("Account Manager Email is required")
-				},
-				{
-					view:"text", name:"num_cuu_provisioned",
-					label:_("Number of Credit Union Users Provisioned"), labelPosition:"top",
-					placeholder:"Number of Credit Union Users Provisioned",
-					invalidMessage:_("Number of Users is required")
-				},
+				}
 			]
 		};
 
@@ -106,6 +100,12 @@ export default class ConsumerForm extends JetView {
 			minWidth:200,
 			margin:5,
 			rows:[
+				{
+					view:"text", name:"num_cuu_provisioned",
+					label:_("Number of Credit Union Users Provisioned"), labelPosition:"top",
+					placeholder:"Number of Credit Union Users Provisioned",
+					invalidMessage:_("Number of Users is required")
+				},
 				sftp_flag,
 				activation_btn,
 				freeze_flag,
@@ -245,6 +245,7 @@ export default class ConsumerForm extends JetView {
 		return {
             view:"form",
 			localId:"form",
+			scroll:"true",
 			rows:[
 				(screen !== "small") ? upper_section : upper_section_narrow,
 				notes,

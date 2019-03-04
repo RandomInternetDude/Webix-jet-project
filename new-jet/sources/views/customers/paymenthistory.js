@@ -8,6 +8,7 @@ export default class PaymentHistoryView extends JetView{
 		return {
 			view:"datatable",
 			select:true,
+			scroll:true,
 			tooltip:true,
 			columns:[
 				{

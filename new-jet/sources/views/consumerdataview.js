@@ -12,7 +12,7 @@ export default class ConsumerDataView extends JetView {
 			view:"datatable",
             select:true,
             localId:"list",
-            scroll:"y",
+            scroll:"true",
             tooltip:true,
             data:unions,
             save: {

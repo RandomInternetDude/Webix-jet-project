@@ -25,13 +25,16 @@ export default class ConsumerView extends JetView {
                     ]
                 },
                 {
+                    view:"multiview",
                     animate:true,
                     fitbiggest:true,
                     localId:"multi",
+                    multiview:true,
                     cells:[
                         {id:"gridView", $subview:ConsumerDataView},
                         {id:"formView", $subview:ConsumerForm}
-                    ]
+                    ],
+                    keepViews:true
                 }
             ]
         }

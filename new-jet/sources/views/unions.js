@@ -55,6 +55,7 @@ export default class UnionsView extends JetView {
 					css:"persons_list",
 					width:(screen !== "small") ? 250 : 230,
 					select:true,
+					scroll:true,
 					tooltip:{
 						template:_("Click twice to see more goodies")
 					},
